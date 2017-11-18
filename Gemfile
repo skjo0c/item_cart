@@ -54,4 +54,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'responders'
 gem 'jquery-rails'
-gem 'react-rails'
+gem 'react-rails', '~>2.2.0'

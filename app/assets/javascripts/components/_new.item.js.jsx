@@ -1,24 +1,43 @@
-var NewItem = createReactClass({
+var NewItem = React.createClass({
 
-	addItem(event){
-		event.preventDefault();
+    getInitialState() { 
+        return { itemName: '', itemDescription: '' }
+    },
 
-		let name = this.refs.name.value;
-		let description = this.refs.description.value;
+    addItem(event){
+    	event.preventDefault();
 
-		console.log(name + '	' + description);
-	},
+        let name = this.state.itemName;
+        let description = this.state.itemDescription;
 
-	render:function(){
-		return(
-			<div>
-				<form>
-					<input  ref= 'name' placeholder = 'Item name...' />
-					<input  ref= 'description' placeholder = 'Description of the item here... ' />
-					<button> Add Item </button>
-				</form>
+        $.ajax({
+        	url: '/api/v1/items',
+        	type: 'POST',
+        	data: {item: {name: name, description: description}},
+        	success: (item) => {
+        		this.props.handleSubmit(item);
+        	}
+        })
 
-			</div>
-		)
-	}
+        console.log(name + '    ' + description);
+        
+    },
+
+    handleNameChange(event) {
+        this.setState({itemName: event.target.value});
+    },
+
+    handleDescriptionChange(event) {
+        this.setState({itemDescription: event.target.value});
+    },
+
+    render:function(){
+        return(
+            <form onSubmit={this.addItem}>
+                <input type="text" value={this.state.itemName} onChange={this.handleNameChange} placeholder = 'Name of the item here... ' />
+                <input type="text" value={this.state.itemDescription} onChange={this.handleDescriptionChange} placeholder = 'Description of the item here... ' />
+                <button> Add Item </button>
+            </form>
+        )
+    }
 });

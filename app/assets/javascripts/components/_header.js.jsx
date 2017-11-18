@@ -1,5 +1,5 @@
-var Header = createReactClass({
-	render:function(){
+var Header = React.createClass({
+	render(){
 		return(
 			<div>
 				<h1> Item Cart </h1>
