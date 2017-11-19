@@ -22,9 +22,16 @@ var Body = React.createClass({
 		});
 	},
 
-	handleUpdate(){
+	removeItemClient(id){
+		var newItems = this.state.items.filter((item)=>{
+			return item.id != id;
+		});
+		this.setState({items: newItems})
+	},
+
+	handleUpdate(item){
 		$.ajax({
-			url: `api/v1/items/${id}`,
+			url: `api/v1/items/${item.id}`,
 			type: 'PUT',
 			data: {item: item},
 			success: () => {
@@ -34,11 +41,11 @@ var Body = React.createClass({
 		})
 	},
 
-	removeItemClient(id){
-		var newItems = this.state.items.filter((item)=>{
-			return item.id != id;
-		});
-		this.setState({items: newItems})
+	updateItems(item){
+		var items = this.state.items.filter((i) => {return i.id != item.id});
+		items.push(item);
+
+		this.setState({items: items});
 	},
 
 	render(){

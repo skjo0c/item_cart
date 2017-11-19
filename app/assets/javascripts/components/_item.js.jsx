@@ -1,19 +1,17 @@
 var Item = React.createClass({
 
 	getInitialState(){
+		var initialName = this.props.item.name;
+		var initialDescription = this.props.item.description;
 		return{editable: false}
-		return { itemName: '', itemDescription: '' }
-	},
-
-	handleUpdate(){
-		this.setState({editable: !this.state.editable})
+		return{itemName: initialName, itemDescription: initialDescription}
 	},
 
 	handleEdit(){
 		if(this.state.editable){
 			var name = this.state.name
 			var description = this.state.description
-			var id = this.props.items.id
+			var id = this.props.item.id
 			var item = {id: id, name: name, description: description}
 
 			this.props.handleUpdate(item)
@@ -31,13 +29,13 @@ var Item = React.createClass({
 
 	render(){
 		var name = this.state.editable? <input type="text" value={this.state.itemName} onChange={this.handleNameChange} defaultValue={this.props.item.name} /> : <h3>{this.props.item.name}</h3>;
-		var description = this.state.editable? <input type="text" value={this.state.itemName} onChange={this.handleNameChange} defaultValue={this.props.item.description} /> : <p> {this.props.item.description} </p>;
+		var description = this.state.editable? <input type="text" value={this.state.itemDescription} onChange={this.handleNameChange} defaultValue={this.props.item.description} /> : <p> {this.props.item.description} </p>;
 		return(
 			<div>
-				<h3>{name}</h3>
-				<p>{description}</p>
-				<button onClick={this.props.handleDelete.bind(this, item.id)}> Delete </button>
-				<button onClick={this.handleUpdate}> {this.state.editable? 'Submit':'Edit'} </button>
+				{name}
+				{description}
+				<button onClick={this.props.handleDelete}> Delete </button>
+				<button onClick={this.handleEdit}> {this.state.editable? 'Submit':'Edit'} </button>
 			</div>
 			)
 	}
