@@ -1,16 +1,16 @@
 var Item = React.createClass({
 
 	getInitialState(){
+
 		var initialName = this.props.item.name;
 		var initialDescription = this.props.item.description;
-		return{editable: false}
-		return{itemName: initialName, itemDescription: initialDescription}
+		return{itemName: initialName, itemDescription: initialDescription, editable: false}
 	},
 
 	handleEdit(){
 		if(this.state.editable){
-			var name = this.state.name
-			var description = this.state.description
+			var name = this.state.itemName
+			var description = this.state.itemDescription
 			var id = this.props.item.id
 			var item = {id: id, name: name, description: description}
 
